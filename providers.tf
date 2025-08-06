@@ -3,10 +3,11 @@
 # If you are using them for auth then specify it with a comment in the provider block
 # providers.tf shouldn't be present in module definitions. They should generally inherit the root module provider provider unless you need to do aliasing.
 
+/*
 provider "aws" {
   # using environment variables
 }
-
+*/
 # e.g: You can configure your environment to supply the region:
 # export AWS_REGION=ap-southeast-1
 
