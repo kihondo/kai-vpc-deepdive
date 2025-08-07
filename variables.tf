@@ -101,3 +101,116 @@ variable "backend_vpc_one_nat_gateway_per_az" {
   type        = bool
   default     = false
 }
+
+
+################################
+# ec2-instances-frontend-vpc
+################################
+variable "frontend_public_ec2_instances" {
+  description = "Map of EC2 instances to create in the frontend VPC, where the key is the instance name and the value is the index of the public subnet to use"
+  type        = map(number)
+  default     = {}
+}
+
+variable "frontend_private_ec2_instances" {
+  description = "Map of EC2 instances to create in the frontend VPC, where the key is the instance name and the value is the index of the public subnet to use"
+  type        = map(number)
+  default     = {}
+}
+
+variable "frontend_public_ec2_instance_type" {
+  description = "The type of instance to start"
+  type        = string
+  default     = "t2.micro"
+}
+
+variable "frontend_private_ec2_instance_type" {
+  description = "The type of instance to start"
+  type        = string
+  default     = "t2.micro"
+}
+
+variable "frontend_ec2_subnet_type" {
+  description = "Type of subnets to use for EC2 instances"
+  type        = string
+  default     = "public"
+
+  validation {
+    condition     = contains(["public", "private"], var.frontend_ec2_subnet_type)
+    error_message = "Subnet type must be either 'public' or 'private'."
+  }
+}
+
+variable "frontend_ec2_key_name" {
+  description = "Key name of the Key Pair to use for the instance; which can be managed using the `aws_key_pair` resource"
+  type        = string
+  default     = null
+}
+
+variable "frontend_associate_public_ip_address_on_ec2" {
+  description = "Whether to associate a public IP address with an instance in a VPC"
+  type        = bool
+  default     = null
+}
+
+variable "frontend_associate_public_ip_address_off_ec2" {
+  description = "Whether to associate a public IP address with an instance in a VPC"
+  type        = bool
+  default     = null
+}
+
+################################
+# ec2-instances-backend-vpc
+################################
+variable "backend_public_ec2_instances" {
+  description = "Map of EC2 instances to create in the backend VPC, where the key is the instance name and the value is the index of the public subnet to use"
+  type        = map(number)
+  default     = {}
+}
+
+variable "backend_private_ec2_instances" {
+  description = "Map of EC2 instances to create in the backend VPC, where the key is the instance name and the value is the index of the public subnet to use"
+  type        = map(number)
+  default     = {}
+}
+
+variable "backend_public_ec2_instance_type" {
+  description = "The type of instance to start"
+  type        = string
+  default     = "t2.micro"
+}
+
+variable "backend_private_ec2_instance_type" {
+  description = "The type of instance to start"
+  type        = string
+  default     = "t2.micro"
+}
+
+variable "backend_ec2_subnet_type" {
+  description = "Type of subnets to use for EC2 instances"
+  type        = string
+  default     = "public"
+
+  validation {
+    condition     = contains(["public", "private"], var.backend_ec2_subnet_type)
+    error_message = "Subnet type must be either 'public' or 'private'."
+  }
+}
+
+variable "backend_ec2_key_name" {
+  description = "Key name of the Key Pair to use for the instance; which can be managed using the `aws_key_pair` resource"
+  type        = string
+  default     = null
+}
+
+variable "backend_associate_public_ip_address_on_ec2" {
+  description = "Whether to associate a public IP address with an instance in a VPC"
+  type        = bool
+  default     = null
+}
+
+variable "backend_associate_public_ip_address_off_ec2" {
+  description = "Whether to associate a public IP address with an instance in a VPC"
+  type        = bool
+  default     = null
+}
