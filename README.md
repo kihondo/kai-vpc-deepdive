@@ -1,5 +1,5 @@
-# VPC Peering using Terraform
-* This repo contains Terraform files to provision VPC Peering on AWS.
+# Intra Region VPC Peering using Terraform
+* This repo contains Terraform files to provision intra region VPC Peering on AWS.
 
 ### Terraform Providers used in this project
 * `source  = "hashicorp/aws"`
