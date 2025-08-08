@@ -2,7 +2,8 @@ module "aws-backend-vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "6.0.1"
 
-  name = var.backend_vpc_name
+  providers = { aws = aws.tokyo }
+  name      = var.backend_vpc_name
 
   cidr = var.backend_vpc_cidr
 

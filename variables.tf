@@ -130,13 +130,24 @@ variable "frontend_private_ec2_instance_type" {
   default     = "t2.micro"
 }
 
-variable "frontend_ec2_subnet_type" {
+variable "frontend_ec2_public_subnet_type" {
   description = "Type of subnets to use for EC2 instances"
   type        = string
   default     = "public"
 
   validation {
-    condition     = contains(["public", "private"], var.frontend_ec2_subnet_type)
+    condition     = contains(["public", "private"], var.frontend_ec2_public_subnet_type)
+    error_message = "Subnet type must be either 'public' or 'private'."
+  }
+}
+
+variable "frontend_ec2_private_subnet_type" {
+  description = "Type of subnets to use for EC2 instances"
+  type        = string
+  default     = "private"
+
+  validation {
+    condition     = contains(["public", "private"], var.frontend_ec2_private_subnet_type)
     error_message = "Subnet type must be either 'public' or 'private'."
   }
 }
@@ -186,13 +197,24 @@ variable "backend_private_ec2_instance_type" {
   default     = "t2.micro"
 }
 
-variable "backend_ec2_subnet_type" {
+variable "backend_ec2_public_subnet_type" {
   description = "Type of subnets to use for EC2 instances"
   type        = string
   default     = "public"
 
   validation {
-    condition     = contains(["public", "private"], var.backend_ec2_subnet_type)
+    condition     = contains(["public", "private"], var.backend_ec2_public_subnet_type)
+    error_message = "Subnet type must be either 'public' or 'private'."
+  }
+}
+
+variable "backend_ec2_private_subnet_type" {
+  description = "Type of subnets to use for EC2 instances"
+  type        = string
+  default     = "private"
+
+  validation {
+    condition     = contains(["public", "private"], var.backend_ec2_private_subnet_type)
     error_message = "Subnet type must be either 'public' or 'private'."
   }
 }

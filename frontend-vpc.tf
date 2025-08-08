@@ -2,7 +2,8 @@ module "aws-frontend-vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "6.0.1"
 
-  name = var.frontend_vpc_name
+  providers = { aws = aws.singapore }
+  name      = var.frontend_vpc_name
 
   cidr = var.frontend_vpc_cidr
 
