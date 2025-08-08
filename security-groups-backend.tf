@@ -56,6 +56,23 @@ resource "aws_vpc_security_group_ingress_rule" "backend_public_https" {
   }
 }
 
+# Allow ICMP (all types and codes) from anywhere for ping and traceroute
+resource "aws_vpc_security_group_ingress_rule" "backend_public_icmp" {
+  for_each = var.backend_public_ec2_instances
+
+  security_group_id = tolist(data.aws_instance.backend_public_ec2_instances[each.key].vpc_security_group_ids)[0]
+  description       = "Allow ICMP (ping and traceroute) from anywhere"
+
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = "icmp"
+  from_port   = -1
+  to_port     = -1
+
+  tags = {
+    Name = "icmp-ingress-all-${each.key}"
+  }
+}
+
 data "aws_instance" "backend_private_ec2_instances" {
   for_each = var.backend_private_ec2_instances
 
@@ -76,5 +93,22 @@ resource "aws_vpc_security_group_ingress_rule" "backend_private_ssh" {
 
   tags = {
     Name = "ssh-ingress-${each.key}"
+  }
+}
+
+# Allow ICMP (all types and codes) from anywhere for ping and traceroute
+resource "aws_vpc_security_group_ingress_rule" "backend_private_icmp" {
+  for_each = var.backend_private_ec2_instances
+
+  security_group_id = tolist(data.aws_instance.backend_private_ec2_instances[each.key].vpc_security_group_ids)[0]
+  description       = "Allow ICMP (ping and traceroute) from anywhere"
+
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = "icmp"
+  from_port   = -1
+  to_port     = -1
+
+  tags = {
+    Name = "icmp-ingress-all-${each.key}"
   }
 }
